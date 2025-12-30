@@ -3,145 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture Series | TDMH HOMES Clinical Interface</title>
+    <title>TDMH HOMES | Continuous Clinical Lecture</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --edu-blue: #0a192f;
-            --clinic-red: #ff2a6d;
-            --gold-accent: #ffcc00;
-            --glass: rgba(255, 255, 255, 0.03);
+            --neon-cyan: #00f2ff;
+            --deep-navy: #020c1b;
+            --bio-red: #ff2a6d;
+            --text-main: #8892b0;
+            --glass-panel: rgba(10, 25, 47, 0.7);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--edu-blue); color: #ccd6f6; line-height: 1.8; }
-        
-        nav { background: rgba(10, 25, 47, 0.98); padding: 20px; border-bottom: 2px solid var(--clinic-red); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 1px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', 'Inter', sans-serif; }
+        body { background-color: var(--deep-navy); color: var(--text-main); scroll-behavior: smooth; }
 
-        .lecture-header { 
-            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070');
-            padding: 100px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);
+        /* Tech Nav */
+        nav { 
+            background: rgba(2, 12, 27, 0.95); 
+            padding: 20px; 
+            border-bottom: 1px solid var(--neon-cyan); 
+            position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+        .nav-container { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.2rem; color: var(--neon-cyan); letter-spacing: 3px; font-weight: bold; }
+        .status-light { width: 10px; height: 10px; background: #0f0; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 10px #0f0; }
+
+        /* Lecture Controls */
+        .master-controls {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            background: var(--glass-panel); padding: 20px; border-radius: 50px;
+            border: 1px solid var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+        .play-master {
+            background: var(--neon-cyan); border: none; padding: 15px 30px; 
+            border-radius: 50px; color: var(--deep-navy); font-weight: bold;
+            cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 1rem;
         }
 
         .container { max-width: 900px; margin: 40px auto; padding: 20px; }
 
-        /* Lecture Module Cards */
-        .module { 
-            background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px; border-radius: 15px; margin-bottom: 40px;
-            transition: 0.3s; position: relative;
+        /* Lecture Module */
+        .lecture-module {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            padding: 40px; border-radius: 5px; margin-bottom: 50px;
+            position: relative; transition: 0.5s;
         }
-        .module:hover { border-color: var(--gold-accent); background: rgba(255,255,255,0.05); }
-        .module h2 { color: var(--gold-accent); margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        
-        /* Educational AI Button */
-        .lecturer-btn {
-            background: var(--clinic-red); color: white; border: none; padding: 10px 20px;
-            border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem;
-            display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px;
-            text-transform: uppercase; letter-spacing: 1px;
+        .lecture-module.active-module { border-color: var(--neon-cyan); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
+        .module-header { color: #fff; margin-bottom: 20px; font-size: 1.5rem; letter-spacing: 1px; }
+        .module-header span { color: var(--neon-cyan); font-family: monospace; margin-right: 10px; }
+
+        .graphics-box {
+            width: 100%; height: 250px; background: rgba(255,255,255,0.05);
+            margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            border: 1px dashed rgba(0, 242, 255, 0.3);
         }
-        .lecturer-btn:hover { background: #ff0055; box-shadow: 0 0 15px var(--clinic-red); }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .stat-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; text-align: center; border: 1px dashed #444; }
-        .stat-box b { font-size: 1.5rem; color: var(--clinic-red); display: block; }
-
-        footer { text-align: center; padding: 40px; color: #8892b0; font-size: 0.9rem; }
+        .highlight { color: var(--neon-cyan); font-weight: bold; }
+        footer { text-align: center; padding: 50px; opacity: 0.5; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="nav-container">
-        <div class="logo">TDMH // CLINICAL EDUCATION</div>
-        <div style="color: var(--gold-accent); font-size: 0.8rem;">LECTURE MODE: ON</div>
+        <div class="logo">TDMH // <span>HOMES_CORE</span></div>
+        <div><span class="status-light"></span> SYSTEM LECTURE_MODE</div>
     </div>
 </nav>
 
-<header class="lecture-header">
-    <div class="container">
-        <h1>HIV, AIDS, & STI 101</h1>
-        <p>A Professional Orientation for Taytay Doctors Multispecialty Hospital</p>
-        <p style="margin-top:20px; font-style: italic; color: var(--gold-accent);">Click "Start Lecture" on each module to hear the educational briefing.</p>
-    </div>
-</header>
+<div class="master-controls">
+    <button class="play-master" id="masterPlayBtn" onclick="toggleContinuousLecture()">
+        <i class="fas fa-play"></i> START FULL LECTURE
+    </button>
+</div>
 
 <div class="container">
 
-    <div class="module">
-        <button class="lecturer-btn" onclick="lectureVoice('mod1')"><i class="fas fa-chalkboard-teacher"></i> Start Lecture</button>
-        <div id="mod1">
-            <h2>Module 1: Regional Statistics</h2>
-            <p>Current data indicates a significant challenge in the CALABARZON sector. There are currently over 23,000 diagnosed cases, with a startling 95% prevalence in males.</p>
-            <div class="stats-grid">
-                <div class="stat-box"><b>23,241</b> Total Cases</div>
-                <div class="stat-box"><b>95%</b> Male Ratio</div>
-            </div>
-        </div>
-    </div><div class="module">
-        <button class="lecturer-btn" onclick="lectureVoice('mod2')"><i class="fas fa-chalkboard-teacher"></i> Start Lecture</button>
-        <div id="mod2">
-            <h2>Module 2: Clinical Pathophysiology</h2>
-            <p>We must differentiate HIV from AIDS. HIV is the viral agent targeting CD4 immune cells. AIDS is the clinical syndrome of advanced immunosuppression.</p>
-            <p>Latency period: Detection is impossible for approximately 90 days post-exposure—known as the Window Period.</p>
-        </div>
+    <div class="lecture-module" id="mod1">
+        <h2 class="module-header"><span>01</span> Regional Epidemiology</h2>
+        <div class="graphics-box"></div>
+        <p class="speech-target">According to the September 2024 update, the CALABARZON region has reached a cumulative total of twenty-three thousand, two hundred and forty-one diagnosed cases. Statistics show that ninety-five percent of these individuals are male, highlighting an urgent need for targeted clinical outreach in our local sector.</p>
     </div>
 
-    
-
-[Image of the HIV replication cycle]
-
-
-    <div class="module">
-        <button class="lecturer-btn" onclick="lectureVoice('mod3')"><i class="fas fa-chalkboard-teacher"></i> Start Lecture</button>
-        <div id="mod3">
-            <h2>Module 3: Preventive Protocols</h2>
-            <p>Transmission requires the ESSE conditions: Exit, Survival, Sufficiency, and Entry. We prevent this using the ABCDE logic: Abstinence, Being Faithful, Condom Use, Drug Cessation, and Early Detection.</p>
-        </div>
+    <div class="lecture-module" id="mod2">
+        <h2 class="module-header"><span>02</span> Virus Pathophysiology</h2>
+        <div class="graphics-box"></div>
+        <p class="speech-target">It is vital to distinguish between HIV and AIDS. HIV is the Human Immunodeficiency Virus that compromises cellular immunity by targeting host lymphocytes. AIDS is the clinical syndrome of severe immunosuppression. Note that the Window Period, where detection is impossible, lasts approximately ninety days post-exposure.</p>
     </div>
 
-    <div class="module" style="background: rgba(255, 42, 109, 0.05); border-color: var(--clinic-red);">
-        <button class="lecturer-btn" onclick="lectureVoice('mod4')"><i class="fas fa-chalkboard-teacher"></i> Start Lecture</button>
-        <div id="mod4">
-            <h2>Module 4: Breakthrough Science (U=U)</h2>
-            <p>Undetectable equals Untransmittable. This is a scientific fact. When viral load is suppressed via Antiretroviral Therapy, sexual transmission becomes impossible.</p>
-        </div>
+    <div class="lecture-module" id="mod3">
+        <h2 class="module-header"><span>03</span> The ESSE Transmission Logic</h2>
+        <div class="graphics-box"></div>
+        <p class="speech-target">HIV transmission is governed by the E S S E principle. First, the virus must Exit the host. Second, it must Survive environmental exposure. Third, it must be present in Sufficient quantities. Finally, it must have an Entry point into the new host system.</p>
+    </div>
+
+    <div class="lecture-module" id="mod4">
+        <h2 class="module-header"><span>04</span> U equals U Protocol</h2>
+        <div class="graphics-box"></div>
+        <p class="speech-target">The gold standard of modern HIV care is the U equals U principle: Undetectable equals Untransmittable. When a patient achieves a suppressed viral load through consistent antiretroviral therapy, the risk of sexual transmission is effectively zero. This is the cornerstone of ending the epidemic.</p>
     </div>
 
 </div>
 
 <footer>
-    <p>TDMH HOMES Clinic // Taytay Doctors Multispecialty Hospital</p>
-    <p>Faculty-style Orientation Module Rev 2.0</p>
+    TDMH HOMES CLINICAL EDUCATION // SECURE INTERFACE // 2024
 </footer>
 
 <script>
-    function lectureVoice(elementId) {
-        const text = document.getElementById(elementId).innerText;
-        
-        window.speechSynthesis.cancel();
+    let isPlaying = false;
+    let currentModuleIndex = 0;
+    const modules = document.querySelectorAll('.lecture-module');
+    const playBtn = document.getElementById('masterPlayBtn');
 
-        const synth = window.speechSynthesis;
-        const msg = new SpeechSynthesisUtterance(text);
-
-        // Educator Voice Settings
-        const voices = synth.getVoices();
-        // Finds a professional sounding English voice
-        const lectureVoice = voices.find(v => v.name.includes('Google US English') || v.name.includes('Natural'));
-        
-        if (lectureVoice) msg.voice = lectureVoice;
-        
-        msg.rate = 0.85; // Slower, lecture-style pacing for clarity
-        msg.pitch = 0.9; // Slightly lower for a professional, serious tone
-        
-        synth.speak(msg);
+    function toggleContinuousLecture() {
+        if (isPlaying) {
+            window.speechSynthesis.cancel();
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i> RESUME LECTURE';
+            removeHighlights();
+        } else {
+            isPlaying = true;
+            playBtn.innerHTML = '<i class="fas fa-pause"></i> PAUSE LECTURE';
+            startModule(currentModuleIndex);
+        }
     }
 
-    // Pre-load voices
-    window.speechSynthesis.onvoiceschanged = () => console.log("Lecturer Voice Modules Ready.");
+    function startModule(index) {
+        if (index >= modules.length) {
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-redo"></i> RESTART LECTURE';
+            currentModuleIndex = 0;
+            return;
+        }
+
+        currentModuleIndex = index;
+        const module = modules[index];
+        const text = module.querySelector('.speech-target').innerText;
+        
+        // UI Feedback
+        removeHighlights();
+        module.classList.add('active-module');
+        module.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Lecturer Voice Settings
+        const voices = window.speechSynthesis.getVoices();
+        const eduVoice = voices.find(v => v.name.includes('Google US English') || v.name.includes('Natural'));
+        if (eduVoice) utterance.voice = eduVoice;
+        
+        utterance.rate = 0.85; // Professional lecturing speed
+        utterance.pitch = 0.9;
+
+        utterance.onend = () => {
+            if (isPlaying) {
+                startModule(index + 1);
+            }
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function removeHighlights() {
+        modules.forEach(m => m.classList.remove('active-module'));
+    }
+
+    // Load voices
+    window.speechSynthesis.onvoiceschanged = () => {
+        console.log("Neural Voice Systems Synchronized.");
+    };
 </script>
 
 </body>
