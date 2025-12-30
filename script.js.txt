@@ -1,0 +1,20 @@
+// Function para patakbuhin ang AI Voice
+function playVoice(elementId) {
+    // Kinukuha ang text sa loob ng element
+    const textToRead = document.getElementById(elementId).innerText;
+    
+    // Pinapatigil ang anumang kasalukuyang nagsasalita para hindi magpatong-patong
+    responsiveVoice.cancel();
+    
+    // Pinapatakbo ang boses (Ginagamit ang Indonesian Male/Female dahil ito ang pinakamalapit sa Tagalog accent)
+    responsiveVoice.speak(textToRead, "Indonesian Male", {
+        pitch: 1,
+        rate: 0.9, // Medyo binagalan para mas maintindihan
+        volume: 1
+    });
+}
+
+// Opsyonal: Auto-stop pag nag-scroll palayo
+window.onscroll = function() {
+    // responsiveVoice.cancel(); // I-uncomment ito kung gusto mong tumigil ang boses pag nag-scroll
+};

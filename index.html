@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDMH HOMES Clinic | HIV & STI Care</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=8QZ7X6m3"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">TDMH <span>HOMES Clinic</span></h1>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">HIV/AIDS</a></li>
+                <li><a href="#sti">STI Guide</a></li>
+                <li><a href="#prevention">Prevention</a></li>
+                <li><a href="#rights">Rights</a></li>
+                <li><a href="#contact" class="nav-btn">Get Tested</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="container">
+            <h2 id="hero-text">Ang Tama at Napapanahong Kaalaman ang Susi sa Kaligtasan.</h2>
+            <p>Welcome to TDMH HOMES Clinic. We provide professional, confidential, and compassionate HIV and STI care services in Taytay.</p>
+            <div class="hero-btns">
+                <button onclick="playVoice('hero-text')" class="btn-voice"><i class="fas fa-volume-up"></i> Pakinggan</button>
+                <a href="#contact" class="btn primary">Magpa-Test Ngayon</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="header-with-voice">
+                <h2 class="section-title">Educational Hub: HIV vs. AIDS</h2>
+                <button onclick="playVoice('about-content')" class="btn-mini-voice"><i class="fas fa-play"></i> Basahin</button>
+            </div>
+            <div id="about-content" class="grid-2">
+                <div class="card">
+                    <i class="fas fa-virus icon"></i>
+                    <h3>What is HIV?</h3>
+                    <p>Isang uri ng mikrobiyo na nagpapahina ng resistensya laban sa mga sakit.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-hospital-user icon"></i>
+                    <h3>What is AIDS?</h3>
+                    <p>Ang huling yugto o koleksyon ng mga sintomas at sakit na maaaring maging nakamamatay kung hindi maaagapan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sti" class="section bg-light">
+        <div class="container">
+            <div class="header-with-voice">
+                <h2 class="section-title">STI Symptoms Guide</h2>
+                <button onclick="playVoice('sti-content')" class="btn-mini-voice"><i class="fas fa-play"></i> Basahin</button>
+            </div>
+            <div id="sti-content">
+                <p class="center">Huwag balewalain ang mga sintomas:</p>
+                <div class="grid-4">
+                    <div class="symptom-item"><i class="fas fa-check"></i><p>Masakit na pag-ihi</p></div>
+                    <div class="symptom-item"><i class="fas fa-check"></i><p>Abnormal na tulo</p></div>
+                    <div class="symptom-item"><i class="fas fa-check"></i><p>Pagsusugat o kati</p></div>
+                    <div class="symptom-item"><i class="fas fa-check"></i><p>Pagsakit ng puson</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prevention" class="section">
+        <div class="container">
+            <h2 class="section-title">The ABCDEs of Prevention</h2>
+            <div class="abcde-grid">
+                <div class="abcde-card"><span>A</span><p>Abstinence: Ayoko muna.</p></div>
+                <div class="abcde-card"><span>B</span><p>Be Faithful: Ikaw lang at ako.</p></div>
+                <div class="abcde-card"><span>C</span><p>Condoms: Correct & Consistent.</p></div>
+                <div class="abcde-card"><span>D</span><p>Don't do Drugs & Alcohol.</p></div>
+                <div class="abcde-card"><span>E</span><p>Education & Early Detection.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="u-u-banner">
+        <div class="container">
+            <h2 id="u-text">"Kapag walang nakita, walang maipapasa."</h2>
+            <p>Undetectable = Untransmittable (U=U)</p>
+            <button onclick="playVoice('u-text')" class="btn-voice-white"><i class="fas fa-volume-up"></i> Pakinggan</button>
+        </div>
+    </section>
+
+    <section id="rights" class="section">
+        <div class="container">
+            <h2 class="section-title">Know Your Rights (RA 11166)</h2>
+            <div class="grid-3">
+                <div class="card-simple">
+                    <h4>Confidentiality</h4>
+                    <p>Bawal ibunyag ang status nang walang pahintulot.</p>
+                </div>
+                <div class="card-simple">
+                    <h4>Youth Testing</h4>
+                    <p>15 years old pataas ay pwedeng magpa-test.</p>
+                </div>
+                <div class="card-simple">
+                    <h4>Anti-Discrimination</h4>
+                    <p>Protektado ka laban sa diskriminasyon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <h3>TDMH HOMES Clinic</h3>
+            <p>Taytay Doctors Multispecialty Hospital, Taytay, Rizal</p>
+            <button onclick="responsiveVoice.cancel();" class="btn-stop">Stop AI Voice</button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
